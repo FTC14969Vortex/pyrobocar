@@ -1,7 +1,7 @@
 from pyfirmata import ArduinoMega
 import time
 
-board = ArduinoMega("/dev/cu.usbmodem14201")
+board = ArduinoMega("/dev/cu.usbmodem14101")
 
 #List of the pin number for every value (Forward, Reverse, Speed) of each motor
 
@@ -45,7 +45,7 @@ def FLmotor(direction: bool, speed:float):
         motorForward.write(0)
         motorReverse.write(1)
     
-        motorSpeed.write(speed)
+    motorSpeed.write(speed)
         
 def BRmotor(direction: bool, speed:float):
     motorForward = board.digital[pin_dict.get("BR_forward")] # one digitial output that controls direction
@@ -112,16 +112,6 @@ time.sleep(1)
 StopMotors()
 time.sleep(0.3)
 
-#Move Back Left Motor
-BLmotor(True,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-BLmotor(False,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-
 #Move Back Right Motor
 BRmotor(True,1)
 time.sleep(1)
@@ -132,5 +122,62 @@ time.sleep(1)
 StopMotors()
 time.sleep(0.3)
 
+#Move Back Left Motor
+BLmotor(True,1)
+time.sleep(1)
+StopMotors()
+time.sleep(0.3)
+BLmotor(False,1)
+time.sleep(1)
+StopMotors()
+time.sleep(0.3)
+
+#Move the robot forward
+FRmotor(True, 0.7)
+FLmotor(True, 0.7)
+BRmotor(True, 0.7)
+BLmotor(True, 0.7)
+time.sleep(1)
+StopMotors()
+
+#Move the robot backward
+FRmotor(False, 0.7)
+FLmotor(False, 0.7)
+BRmotor(False, 0.7)
+BLmotor(False, 0.7)
+time.sleep(1)
+StopMotors()
+
+#Move the robot right
+FRmotor(False, 0.7)
+FLmotor(True, 0.7)
+BRmotor(True, 0.7)
+BLmotor(False, 0.7)
+time.sleep(1)
+StopMotors()
+
+#Move the robot left
+FRmotor(True, 0.7)
+FLmotor(False, 0.7)
+BRmotor(False, 0.7)
+BLmotor(True, 0.7)
+time.sleep(1)
+StopMotors()
+
+#Turn the robot clockwise
+FRmotor(False, 0.7)
+FLmotor(True, 0.7)
+BRmotor(False, 0.7)
+BLmotor(True, 0.7)
+time.sleep(1)
+StopMotors()
+
+#Turn the robot counter-clockwise
+FRmotor(True, 0.7)
+FLmotor(False, 0.7)
+BRmotor(True, 0.7)
+BLmotor(False, 0.7)
+time.sleep(1)
+StopMotors()
 
 
