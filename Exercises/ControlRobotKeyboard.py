@@ -1,14 +1,19 @@
 from pyfirmata import ArduinoMega
-import time
+import pygame
 
+#Set up board port
 board = ArduinoMega("/dev/cu.usbmodem14101")
 
+#Init pygame and pygame screen
+pygame.init
+screen = pygame.display.set_mode((800,400))
+pygame.display.set_caption("Robot Controller")
+
 #List of the pin number for every value (Forward, Reverse, Speed) of each motor
-
 pin_dict = {}
-
 pin_dict = {"FR_forward": 22, "FR_reverse": 24, "FR_speed": 9,"FL_forward": 26,"FL_reverse": 28,"FL_speed": 10,"BR_forward": 5,"BR_reverse": 6,"BR_speed": 11,"BL_forward": 7,"BL_reverse": 8,"BL_speed" : 12}
 
+#Methods for motors and movement
 def FRmotor(direction: bool, speed: float):
     motorForward = board.digital[pin_dict.get("FR_forward")] # one digitial output that controls direction
     motorReverse = board.digital[pin_dict.get("FR_reverse")] # second digital output that controls direction
@@ -126,85 +131,84 @@ def turnRight(speed: float):
     FLmotor(True, speed)
     BRmotor(False, speed)
     BLmotor(True, speed)
-
-
-#Move Front Right Motor
-FRmotor(True,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-FRmotor(False,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-
-#Move Front Left Motor
-FLmotor(True,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-FLmotor(False,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-
-#Move Back Right Motor
-BRmotor(True,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-BRmotor(False,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-
-#Move Back Left Motor
-BLmotor(True,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-BLmotor(False,1)
-time.sleep(1)
-StopMotors()
-time.sleep(0.3)
-
-#Move the robot forward
-moveForward(0.7)
-time.sleep(1)
-StopMotors()
-
-#Move the robot backward
-moveBackward
-time.sleep(1)
-StopMotors()
-
-#Move the robot right
-strafeRight(0.7)
-time.sleep(1)
-StopMotors()
-
-#Move the robot left
-FRmotor(True, 0.7)
-FLmotor(False, 0.7)
-BRmotor(False, 0.7)
-BLmotor(True, 0.7)
-time.sleep(1)
-StopMotors()
-
-#Turn the robot clockwise
-FRmotor(False, 0.7)
-FLmotor(True, 0.7)
-BRmotor(False, 0.7)
-BLmotor(True, 0.7)
-time.sleep(1)
-StopMotors()
-
-#Turn the robot counter-clockwise
-FRmotor(True, 0.7)
-FLmotor(False, 0.7)
-BRmotor(True, 0.7)
-BLmotor(False, 0.7)
-time.sleep(1)
-StopMotors()
-
-
+    
+    
+    
+    
+#Pygame Loop
+while True:
+    
+    events = pygame.event.get()
+    
+    for event in events:
+        
+        #If/While key is pressed
+        if event.type == pygame.KEYDOWN:
+            
+            if event.key == pygame.K_w or event.key == pygame.K_UP:
+                #Update display
+                pygame.draw.circle(screen, (0,255,0), (0,0), 100)
+                pygame.display.update()
+                
+                #Move Motors
+                moveForward(0.7)
+                
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                #Update display
+                pygame.draw.circle(screen, (0,255,0), (800,0), 100)
+                pygame.display.update()
+                
+                #Move Motors
+                moveLeft(0.7)
+                
+            if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                #Update display
+                pygame.draw.circle(screen, (0,255,0), (800,400), 100)
+                pygame.display.update()
+                
+                #Move Motors
+                moveBackward(0.7)
+                
+            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                #Update display
+                pygame.draw.circle(screen, (0,255,0), (0,400), 100)
+                pygame.display.update()
+                
+                #Move Motors
+                moveRight(0.7)
+                
+                
+        #When key is released 
+        if event.type == pygame.KEYUP:
+            
+            if event.key == pygame.K_w or event.key == pygame.K_UP:
+                #Update display
+                pygame.draw.circle(screen, (255,0,0), (0,0), 100)
+                pygame.display.update()
+                
+                #Stop motors
+                StopMotors()
+                
+            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                #Update display
+                pygame.draw.circle(screen, (255,0,0), (800,0), 100)
+                pygame.display.update()
+                
+                #Stop motors
+                StopMotors()
+                
+            if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                #Update display
+                pygame.draw.circle(screen, (255,0,0), (800,400), 100)
+                pygame.display.update()
+                
+                #Stop motors
+                StopMotors()
+                
+            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                #Update display
+                pygame.draw.circle(screen, (255,0,0), (0,400), 100)
+                pygame.display.update()
+                
+                #Stop motors
+                StopMotors()
