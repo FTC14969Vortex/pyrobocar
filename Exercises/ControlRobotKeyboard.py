@@ -6,8 +6,16 @@ board = ArduinoMega("/dev/cu.usbmodem14101")
 
 #Init pygame and pygame screen
 pygame.init
-screen = pygame.display.set_mode((800,400))
+screen = pygame.display.set_mode((1000,500), pygame.RESIZABLE)
 pygame.display.set_caption("Robot Controller")
+
+#Set up the black color
+BLACK = (0,0,0)
+BLUE = (2,130,242)
+
+#Set up the run variable for the main WHILE loop. When run is false the game will stop.
+Run = True
+
 
 #List of the pin number for every value (Forward, Reverse, Speed) of each motor
 pin_dict = {}
@@ -135,80 +143,49 @@ def turnRight(speed: float):
     
     
     
+
+
+#Position for the circle/robot to draw
+x = 400
+y = 200
+
 #Pygame Loop
-while True:
+while Run:
     
+    #Reset the screen
+    screen.fill(BLACK)
+    
+    #Draw the circle
+    pygame.draw.circle(screen, BLUE, (x,y), 25)
+    
+    keys = pygame.key.get_pressed()
+    
+    #Moves circle and motor based off keypress
+    if keys[pygame.K_UP] or keys[pygame.K_w]:
+        y -= 5
+        moveForward(2)
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        y += 5
+        moveBackward(2)
+    if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+        x += 5
+        moveRight(2)
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        x -= 5
+        moveLeft(2)
+    
+    #Stop the motors and update the display
+    StopMotors()
+    pygame.display.update()
+    
+    
+    #Quits the game
     events = pygame.event.get()
-    
     for event in events:
-        
-        #If/While key is pressed
         if event.type == pygame.KEYDOWN:
-            
-            if event.key == pygame.K_w or event.key == pygame.K_UP:
-                #Update display
-                pygame.draw.circle(screen, (0,255,0), (0,0), 100)
-                pygame.display.update()
+            if event.key == pygame.K_ESCAPE:
+                Run = False
+        if event.type == pygame.QUIT:
+            Run = False
                 
-                #Move Motors
-                moveForward(0.7)
-                
-            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                #Update display
-                pygame.draw.circle(screen, (0,255,0), (800,0), 100)
-                pygame.display.update()
-                
-                #Move Motors
-                moveLeft(0.7)
-                
-            if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                #Update display
-                pygame.draw.circle(screen, (0,255,0), (800,400), 100)
-                pygame.display.update()
-                
-                #Move Motors
-                moveBackward(0.7)
-                
-            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                #Update display
-                pygame.draw.circle(screen, (0,255,0), (0,400), 100)
-                pygame.display.update()
-                
-                #Move Motors
-                moveRight(0.7)
-                
-                
-        #When key is released 
-        if event.type == pygame.KEYUP:
-            
-            if event.key == pygame.K_w or event.key == pygame.K_UP:
-                #Update display
-                pygame.draw.circle(screen, (255,0,0), (0,0), 100)
-                pygame.display.update()
-                
-                #Stop motors
-                StopMotors()
-                
-            if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                #Update display
-                pygame.draw.circle(screen, (255,0,0), (800,0), 100)
-                pygame.display.update()
-                
-                #Stop motors
-                StopMotors()
-                
-            if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                #Update display
-                pygame.draw.circle(screen, (255,0,0), (800,400), 100)
-                pygame.display.update()
-                
-                #Stop motors
-                StopMotors()
-                
-            if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                #Update display
-                pygame.draw.circle(screen, (255,0,0), (0,400), 100)
-                pygame.display.update()
-                
-                #Stop motors
-                StopMotors()
+pygame.quit
