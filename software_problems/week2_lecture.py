@@ -51,65 +51,57 @@ class Chassis:
     # It serves as the constructor of the class.
     # Here we are defining the properties of a chassis as class variables.
     def __init__(self):
-        self.FLmotor = 'off'  # Front Left motor status
-        self.FRmotor = 'off'  # Front Right motor status
-        self.BLmotor = 'off'  # Back Left motor status
-        self.BRmotor = 'off'  # Back Right motor status
+        # Front Left motor status
+        # Front Right motor status
+        # Back Left motor status
+        # Back Right motor status
 
     # A function to display the status of the motors
     def display_status(self):
-        print(f"FLmotor: {self.FLmotor}, FRmotor: {self.FRmotor}, BLmotor: {self.BLmotor}, BRmotor: {self.BRmotor}")
+        ...
 
     # A function to drive the chassis forward
     def drive_forward(self):
-        self.FLmotor = self.FRmotor = self.BLmotor = self.BRmotor = 'forward'
+        ...
         print("Driving forward")
 
     # A function to drive the chassis backward
     def drive_backward(self):
-        self.FLmotor = self.FRmotor = self.BLmotor = self.BRmotor = 'reverse'
+        ...
         print("Driving backward")
 
     # A function to turn the chassis right
     def turn_right(self):
-        self.FLmotor = self.BRmotor = 'forward'
-        self.FRmotor = self.BLmotor = 'reverse'
+        ...
         print("Turning right")
 
     # A function to turn the chassis left
     def turn_left(self):
-        self.FLmotor = self.BRmotor = 'reverse'
-        self.FRmotor = self.BLmotor = 'forward'
+        ...
         print("Turning left")
 
-# %%
+# %% Drive the chassis
 # Let's create a chassis object now
 chassis = Chassis()
 
 # Print the initial status of the motors
 chassis.display_status()
 
-# %%
 # Drive the chassis forward and display the motor status
 chassis.drive_forward()
 chassis.display_status()
 
-# %%
 # Drive the chassis backward and display the motor status
 chassis.drive_backward()
 chassis.display_status()
 
-# %%
 # Turn the chassis right and display the motor status
 chassis.turn_right()
 chassis.display_status()
 
-# %%
 # Turn the chassis left and display the motor status
 chassis.turn_left()
 chassis.display_status()
-
-# %%
 
 
 # %% Mecanum Chassis
@@ -125,66 +117,56 @@ class MecanumChassis:
         print(f"FLmotor: {self.FLmotor}, FRmotor: {self.FRmotor}, BLmotor: {self.BLmotor}, BRmotor: {self.BRmotor}")
 
     def drive_forward(self):
-        self.FLmotor = self.FRmotor = self.BLmotor = self.BRmotor = 'forward'
+        ...
         print("Driving forward")
 
     def drive_backward(self):
-        self.FLmotor = self.FRmotor = self.BLmotor = self.BRmotor = 'reverse'
+        ...
         print("Driving backward")
 
     def turn_right(self):
-        self.FLmotor = self.BRmotor = 'forward'
-        self.FRmotor = self.BLmotor = 'reverse'
+        ...
         print("Turning right")
 
     def turn_left(self):
-        self.FLmotor = self.BRmotor = 'reverse'
-        self.FRmotor = self.BLmotor = 'forward'
+        ...
         print("Turning left")
 
     def strafe_right(self):
-        self.FLmotor = self.BLmotor = 'forward'
-        self.FRmotor = self.BRmotor = 'reverse'
+        ...
         print("Strafing right")
 
     def strafe_left(self):
-        self.FLmotor = self.BLmotor = 'reverse'
-        self.FRmotor = self.BRmotor = 'forward'
+        ...
         print("Strafing left")
 
-# %%
+# %% Drive the mecanum chassis
 # Let's create a MecanumChassis object now
 mecanum_chassis = MecanumChassis()
 
 # Print the initial status of the motors
 mecanum_chassis.display_status()
 
-# %%
 # Drive the MecanumChassis forward and display the motor status
 mecanum_chassis.drive_forward()
 mecanum_chassis.display_status()
 
-# %%
 # Drive the MecanumChassis backward and display the motor status
 mecanum_chassis.drive_backward()
 mecanum_chassis.display_status()
 
-# %%
 # Turn the MecanumChassis right and display the motor status
 mecanum_chassis.turn_right()
 mecanum_chassis.display_status()
 
-# %%
 # Turn the MecanumChassis left and display the motor status
 mecanum_chassis.turn_left()
 mecanum_chassis.display_status()
 
-# %%
 # Strafe the MecanumChassis right and display the motor status
 mecanum_chassis.strafe_right()
 mecanum_chassis.display_status()
 
-# %%
 # Strafe the MecanumChassis left and display the motor status
 mecanum_chassis.strafe_left()
 mecanum_chassis.display_status()
