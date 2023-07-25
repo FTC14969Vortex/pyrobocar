@@ -3,7 +3,7 @@ from pyfirmata import ArduinoMega, PWM, OUTPUT
 
 # Define the Chassis class to control the motors
 class Chassis:
-    def __init__(self, port):
+    def __init__(self, port,):
         # Initialize the Arduino board with the specified port
         self.board = ArduinoMega(port)
         
@@ -13,9 +13,9 @@ class Chassis:
     
     def FRmotor(self, direction: bool, speed: float):
         factor = 0
-        motorForward = self.board.digital[self.motors_pin.get("FR_forward")] # one digitial output that controls direction
-        motorReverse = self.board.digital[self.motor_pins.get("FR_reverse")] # second digital output that controls direction
-        motorSpeed = self.board.digital[self.motor_pins.get("FR_speed")] # analog output that controls speed
+        motorForward = self.board.digital[self.motors.get("FR_forward")] # one digitial output that controls direction
+        motorReverse = self.board.digital[self.motors.get("FR_reverse")] # second digital output that controls direction
+        motorSpeed = self.board.digital[self.motors.get("FR_speed")] # analog output that controls speed
 
         motorSpeed.mode = PWM
         motorForward.mode = OUTPUT
@@ -32,9 +32,9 @@ class Chassis:
         motorSpeed.write(speed)
 
     def FLmotor(self, direction: bool, speed:float):
-        motorForward = self.board.digital[self.motor_pins.get("FL_forward")] # one digitial output that controls direction
-        motorReverse = self.board.digital[self.motor_pins.get("FL_reverse")] # second digital output that controls direction
-        motorSpeed = self.board.digital[self.motor_pins.get("FL_speed")] # analog output that controls speed
+        motorForward = self.board.digital[self.motors.get("FL_forward")] # one digitial output that controls direction
+        motorReverse = self.board.digital[self.motors.get("FL_reverse")] # second digital output that controls direction
+        motorSpeed = self.board.digital[self.motors.get("FL_speed")] # analog output that controls speed
 
         motorSpeed.mode = PWM
         motorForward.mode = OUTPUT
@@ -51,9 +51,9 @@ class Chassis:
         motorSpeed.write(speed)
             
     def BRmotor(self, direction: bool, speed:float):
-        motorForward = self.board.digital[self.motor_pins.get("BR_forward")] # one digitial output that controls direction
-        motorReverse = self.board.digital[self.motor_pins.get("BR_reverse")] # second digital output that controls direction
-        motorSpeed = self.board.digital[self.motor_pins.get("BR_speed")] # analog output that controls speed
+        motorForward = self.board.digital[self.motors.get("BR_forward")] # one digitial output that controls direction
+        motorReverse = self.board.digital[self.motors.get("BR_reverse")] # second digital output that controls direction
+        motorSpeed = self.board.digital[self.motors.get("BR_speed")] # analog output that controls speed
 
         motorSpeed.mode = PWM
         motorForward.mode = OUTPUT
@@ -70,9 +70,9 @@ class Chassis:
         motorSpeed.write(speed)
         
     def BLmotor(self, direction: bool, speed:float):
-        motorForward = self.board.digital[self.motor_pins.get("BL_forward")] # one digitial output that controls direction
-        motorReverse = self.board.digital[self.motor_pins.get("BL_reverse")] # second digital output that controls direction
-        motorSpeed = self.board.digital[self.motor_pins.get("BL_speed")] # analog output that controls speed
+        motorForward = self.board.digital[self.motors.get("BL_forward")] # one digitial output that controls direction
+        motorReverse = self.board.digital[self.motors.get("BL_reverse")] # second digital output that controls direction
+        motorSpeed = self.board.digital[self.motors.get("BL_speed")] # analog output that controls speed
 
         motorSpeed.mode = PWM
         motorForward.mode = OUTPUT
@@ -94,38 +94,51 @@ class Chassis:
         self.FLmotor(True, 0)
         self.BLmotor(True, 0)
     
-def moveForward(self, speed: float):
-    self.FRmotor(True, speed)
-    self.FLmotor(True, speed)
-    self.BRmotor(True, speed)
-    self.BLmotor(True, speed)
-    
-def moveBackward(self, speed: float):
-    self.FRmotor(False, speed)
-    self.FLmotor(False, speed)
-    self.BRmotor(False, speed)
-    self.BLmotor(False, speed)
+    def moveForward(self, speed: float):
+        self.FRmotor(True, speed)
+        self.FLmotor(True, speed)
+        self.BRmotor(True, speed)
+        self.BLmotor(True, speed)
+        
+    def moveBackward(self, speed: float):
+        self.FRmotor(False, speed)
+        self.FLmotor(False, speed)
+        self.BRmotor(False, speed)
+        self.BLmotor(False, speed)
 
-def moveLeft(self, speed: float):
-    self.FRmotor(True, speed)
-    self.FLmotor(False, speed)
-    self.BRmotor(False, speed)
-    self.BLmotor(True, speed)
+    def moveLeft(self, speed: float):
+        self.FRmotor(True, speed)
+        self.FLmotor(False, speed)
+        self.BRmotor(False, speed)
+        self.BLmotor(True, speed)
 
-def moveRight(self, speed: float):
-    self.FRmotor(False, speed)
-    self.FLmotor(True, speed)
-    self.BRmotor(True, speed)
-    self.BLmotor(False, speed)
-    
-def turnLeft(self, speed: float):
-    self.FRmotor(True, speed)
-    self.FLmotor(False, speed)
-    self.BRmotor(True, speed)
-    self.BLmotor(False, speed)
+    def moveRight(self, speed: float):
+        self.FRmotor(False, speed)
+        self.FLmotor(True, speed)
+        self.BRmotor(True, speed)
+        self.BLmotor(False, speed)
+        
+    def turnLeft(self, speed: float):
+        self.FRmotor(True, speed)
+        self.FLmotor(False, speed)
+        self.BRmotor(True, speed)
+        self.BLmotor(False, speed)
 
-def turnRight(self, speed: float):
-    self.FRmotor(False, speed)
-    self.FLmotor(True, speed)
-    self.BRmotor(False, speed)
-    self.BLmotor(True, speed)
+    def turnRight(self, speed: float):
+        self.FRmotor(False, speed)
+        self.FLmotor(True, speed)
+        self.BRmotor(False, speed)
+        self.BLmotor(True, speed)
+
+chassis = Chassis("/dev/cu.usbmodem101")
+
+
+for i in range(4):
+    chassis.moveForward(1)
+    time.sleep(1)
+    chassis.StopMotors()
+    chassis.turnRight(1)
+    time.sleep(0.7)
+    chassis.StopMotors()
+    i+=1
+chassis.StopMotors()
